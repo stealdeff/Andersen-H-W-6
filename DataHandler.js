@@ -14,8 +14,7 @@ class DataHandler {
             const response = await fetch(`https://jsonplaceholder.typicode.com/posts`);
             const userData = await response.json()
             this.dataMap = new Map(userData.map(item => [item.id, item]))
-            console.log("The operation is done");
-            return "Data fetched successfully";
+            return [...this.dataMap.values()];
         }
         catch (error) {
             console.error("The operation is failed", error);
@@ -25,11 +24,10 @@ class DataHandler {
     listPosts() {
         const mapSort = [...this.dataMap.values()].sort((a, b) =>
             a.title.localeCompare(b.title));
-        mapSort.forEach((posts) => {
-            console.log(`userId: ${posts.userId} id: ${posts.id}, title: ${posts.title}, body: ${posts.body}`);
-        });
-
-
+        // mapSort.forEach((posts) => {
+        //     console.log(`userId: ${posts.userId} id: ${posts.id}, title: ${posts.title}, body: ${posts.body}`);
+        // }
+        return mapSort
     }
     getPost(id) {
         return this.dataMap.get(id)
